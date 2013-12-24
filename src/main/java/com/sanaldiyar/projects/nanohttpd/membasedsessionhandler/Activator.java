@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+Memory Based Session Handler
+Copryright © 2013 Kazım SARIKAYA
+
+This program is licensed under the terms of Sanal Diyar Software License. Please
+read the license file or visit http://license.sanaldiyar.com
  */
 package com.sanaldiyar.projects.nanohttpd.membasedsessionhandler;
 
@@ -12,11 +14,17 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 /**
- *
+ * Memory Based Session Handler Bundle Activator.
+ * Starting of bundle may be slow due to initializing secure random generator
  * @author kazim
  */
 public class Activator implements BundleActivator {
 
+    /**
+     * Bundle starter.
+     * @param bc Bundle context
+     * @throws Exception any exception
+     */
     @Override
     public void start(BundleContext bc) throws Exception {
         Dictionary<String, Object> props = new Hashtable<>();

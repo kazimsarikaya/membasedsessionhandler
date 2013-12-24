@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+Memory Based Session Handler
+Copryright © 2013 Kazım SARIKAYA
+
+This program is licensed under the terms of Sanal Diyar Software License. Please
+read the license file or visit http://license.sanaldiyar.com
  */
 package com.sanaldiyar.projects.nanohttpd.membasedsessionhandler;
 
@@ -11,7 +13,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 /**
- *
+ * Memory Based Session Manager.
+ * Stores session data inside a hash map
  * @author kazim
  */
 class MemBasedSessionManager implements NanoSessionManager {

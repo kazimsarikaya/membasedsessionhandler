@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+Memory Based Session Handler
+Copryright © 2013 Kazım SARIKAYA
+
+This program is licensed under the terms of Sanal Diyar Software License. Please
+read the license file or visit http://license.sanaldiyar.com
  */
 package com.sanaldiyar.projects.nanohttpd.membasedsessionhandler;
 
@@ -18,7 +20,8 @@ import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
+ * Memory Based Session Handler class.
+ * Manages session cookie and session managers.
  * @author kazim
  */
 public class MemBasedSessionHandler implements NanoSessionHandler {
@@ -27,12 +30,21 @@ public class MemBasedSessionHandler implements NanoSessionHandler {
     private final SecureRandom srng;
     private final HashMap<String, MemBasedSessionManager> managers;
 
+    /**
+     * Initilize secure random generator
+     */
     public MemBasedSessionHandler() {
         SecureRandom sr = new SecureRandom();
         srng = new SecureRandom(sr.generateSeed(16));
         managers = new LinkedHashMap<>();
     }
 
+    /**
+     * Request parser for session.
+     * Gets and builds session information
+     * @param request the request
+     * @return session manager
+     */
     @Override
     public NanoSessionManager parseRequest(Request request) {
         MemBasedSessionManager nanoSessionManager = null;
@@ -63,6 +75,12 @@ public class MemBasedSessionHandler implements NanoSessionHandler {
         return nanoSessionManager;
     }
 
+    /**
+     * Parse Response for sending session information to the client.
+     * Especially cookies
+     * @param nanoSessionManager session manager
+     * @param response the response
+     */
     @Override
     public void parseResponse(NanoSessionManager nanoSessionManager, Response response) {
         if (!(nanoSessionManager instanceof MemBasedSessionManager)) {
