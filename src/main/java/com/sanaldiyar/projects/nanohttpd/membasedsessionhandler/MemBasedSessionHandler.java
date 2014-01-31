@@ -1,9 +1,9 @@
 /*
-Memory Based Session Handler
-Copryright © 2013 Kazım SARIKAYA
+ Memory Based Session Handler
+ Copryright © 2013 Kazım SARIKAYA
 
-This program is licensed under the terms of Sanal Diyar Software License. Please
-read the license file or visit http://license.sanaldiyar.com
+ This program is licensed under the terms of Sanal Diyar Software License. Please
+ read the license file or visit http://license.sanaldiyar.com
  */
 package com.sanaldiyar.projects.nanohttpd.membasedsessionhandler;
 
@@ -20,8 +20,9 @@ import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Memory Based Session Handler class.
- * Manages session cookie and session managers.
+ * Memory Based Session Handler class. Manages session cookie and session
+ * managers.
+ *
  * @author kazim
  */
 public class MemBasedSessionHandler implements NanoSessionHandler {
@@ -40,8 +41,8 @@ public class MemBasedSessionHandler implements NanoSessionHandler {
     }
 
     /**
-     * Request parser for session.
-     * Gets and builds session information
+     * Request parser for session. Gets and builds session information
+     *
      * @param request the request
      * @return session manager
      */
@@ -76,8 +77,9 @@ public class MemBasedSessionHandler implements NanoSessionHandler {
     }
 
     /**
-     * Parse Response for sending session information to the client.
-     * Especially cookies
+     * Parse Response for sending session information to the client. Especially
+     * cookies
+     *
      * @param nanoSessionManager session manager
      * @param response the response
      */
@@ -89,8 +91,19 @@ public class MemBasedSessionHandler implements NanoSessionHandler {
         MemBasedSessionManager mbsm = (MemBasedSessionManager) nanoSessionManager;
         String sessionid = mbsm.getSessionID();
         Cookie sesscookie = new Cookie(SESSIONCOOKIEID, sessionid, 15, TimeUnit.MINUTES, response.getRequestURL().getHost(), "/", false, true);
-        mbsm.setExpires(sesscookie.getExpires());
+        mbsm.setExpires(new Date(new Date().getTime() + sesscookie.getMaxAge() * 1000));
         response.getCookies().add(sesscookie);
+    }
+
+    /**
+     * Session manager cleaner method
+     */
+    public void cleanSesssionManagers() {
+        for (MemBasedSessionManager nsm : managers.values()) {
+            if (nsm.getExpires().getTime() <= new Date().getTime()) {
+                managers.remove(nsm.getSessionID());
+            }
+        }
     }
 
 }
