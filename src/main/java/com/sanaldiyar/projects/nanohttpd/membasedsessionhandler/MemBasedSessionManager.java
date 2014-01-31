@@ -1,9 +1,9 @@
 /*
-Memory Based Session Handler
-Copryright © 2013 Kazım SARIKAYA
+ Memory Based Session Handler
+ Copryright © 2013 Kazım SARIKAYA
 
-This program is licensed under the terms of Sanal Diyar Software License. Please
-read the license file or visit http://license.sanaldiyar.com
+ This program is licensed under the terms of Sanal Diyar Software License. Please
+ read the license file or visit http://license.sanaldiyar.com
  */
 package com.sanaldiyar.projects.nanohttpd.membasedsessionhandler;
 
@@ -13,8 +13,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 /**
- * Memory Based Session Manager.
- * Stores session data inside a hash map
+ * Memory Based Session Manager. Stores session data inside a hash map
+ *
  * @author kazim
  */
 class MemBasedSessionManager implements NanoSessionManager {
@@ -40,8 +40,8 @@ class MemBasedSessionManager implements NanoSessionManager {
     }
 
     @Override
-    public Object get(String key) {
-        return values.get(key);
+    public <T> T get(String key, Class<T> clazz) {
+        return (T) values.get(key);
     }
 
     @Override
